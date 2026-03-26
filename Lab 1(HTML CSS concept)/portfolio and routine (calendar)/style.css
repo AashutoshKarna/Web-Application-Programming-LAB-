@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+p{
+    text-align: justify;
+}
+h2{
+    text-align: center;
+}
+header {
+    background-color: #e91b3e;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    min-height: 400px;
+}
+
+aside {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside ul li {
+    margin-bottom: 10px;
+}
+
+aside ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+aside ul li a:hover {
+    color: #007BFF;
+}
+
+section {
+    flex: 1;
+    padding: 20px;
+    display: flex; 
+    gap: 20px;     
+}
+.box1 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle {
+    width: 250px;
+    height: 250px;
+    background-color: red;
+    border-radius: 50%;
+}
+.box2 {
+    flex: 2;
+    display: flex;
+    flex-direction: column; /*inside the box we vertically stacked other two boxes.*/
+    gap: 20px;
+}
+
+.inner_box1 {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+.inner_box2 {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px ;
+}
+.inner_child{   
+    background-color: rgb(240, 226, 148);
+}
+.down {
+    background-color: rgb(110, 9, 168);
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+/* when it becomes less than or equal to 600 following css will be applied in our pfp page. */
+@media (max-width: 600px) {
+    main {
+        flex-direction: column;
+    }
+
+    section {
+        flex-direction: column;
+    }
+
+    .box1, .box2 {
+        flex: unset;
+    }
+}

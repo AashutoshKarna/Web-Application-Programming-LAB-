@@ -1,0 +1,16 @@
+body{
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#root{
+    width: 80vw;
+    padding: 40px;
+    text-align: center;
+    background-color: bisque;
+}

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, Request 
+from fastapi import APIRouter, Response, Request, HTTPException, Depends
 from pydantic import BaseModel, Field
 from uuid import UUID,  uuid4
 from slowapi import Limiter 
@@ -45,8 +45,15 @@ def fetch_todos():
     return TodoGetOut(todos=db, msg="Tdodos fetch")
 
 #Get route -- used to fetch a specific todo using its unique id 
-@todo_router.get("/todo/{id}")
-def fetch_todo (id: str)-> TodoCreateOut | BaseOut:
+def check_id(id:str)->UUID:
+    try:
+        id = UUID(id)
+    except Exception as ex:
+        raise HTTPException(detail=BaseOut(msg="Wrong UUID", error=str(ex)).model_dump(),
+        status_code=400,)
+    return id
+@todo_router.get("/todo/{id}", response_model = TodoCreateOut | BaseOut)
+def fetch_todo (request: Request, id: str= Depends(check_id))-> TodoCreateOut | BaseOut:
     try:
         id = UUID(id)
     except Exception as ex:

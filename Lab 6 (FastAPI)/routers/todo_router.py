@@ -53,12 +53,12 @@ def check_id(id:str)->UUID:
         status_code=400,)
     return id
 @todo_router.get("/todo/{id}", response_model = TodoCreateOut | BaseOut)
-def fetch_todo (request: Request, id: str= Depends(check_id))-> TodoCreateOut | BaseOut:
-    try:
-        id = UUID(id)
-    except Exception as ex:
-        return Response(content=BaseOut(msg="Wrong UUID", error=str(ex)).model_dump_json(),
-        status_code=400,)
+def fetch_todo (request: Request, id: UUID = Depends(check_id))-> TodoCreateOut | BaseOut:
+    # try:
+    #     id = UUID(id)
+    # except Exception as ex:
+    #     return Response(content=BaseOut(msg="Wrong UUID", error=str(ex)).model_dump_json(),
+    #     status_code=400,)
     for todo in db:
         if todo.id == id:
             return Response(content=TodoCreateOut(todo=todo, msg="Todo Found").model_dump_json(), status_code=200, )
@@ -67,11 +67,11 @@ def fetch_todo (request: Request, id: str= Depends(check_id))-> TodoCreateOut | 
 
 #update route - used to update the name of a specific todo 
 @todo_router.put("/update_name/{id}", response_model = TodoCreateOut | BaseOut)
-def update_name(id: str, todo:Todo)->TodoCreateOut | BaseOut:
-    try:
-        id=UUID(id)
-    except Exception as ex:
-        return BaseOut(msg="Wrong UUID structure", error=str(ex))
+def update_name(todo:Todo, id:UUID = Depends(check_id),)->TodoCreateOut | BaseOut:    #because default wala paxi rakhne ho 
+    # try:
+    #     id=UUID(id)
+    # except Exception as ex:
+    #     return BaseOut(msg="Wrong UUID structure", error=str(ex))
     for _todo in db:
         if _todo.id== id:
             _todo.name = todo.name
@@ -81,11 +81,11 @@ def update_name(id: str, todo:Todo)->TodoCreateOut | BaseOut:
 
 #delete route - used to delete a specific todo 
 @todo_router.delete("/delete/{id}", response_model = BaseOut)
-def delete_todo(id:str) -> BaseOut:
-    try:
-        id = UUID(id)
-    except Exception as ex:
-        return BaseOut (msg = "Wrong UUID structure", error=str(ex))
+def delete_todo(id:UUID = Depends(check_id)) -> BaseOut:
+    # try:
+    #     id = UUID(id)
+    # except Exception as ex:
+    #     return BaseOut (msg = "Wrong UUID structure", error=str(ex))
     for i, todo in enumerate[Todo](db):
         if todo.id== id:
             del db[i]
